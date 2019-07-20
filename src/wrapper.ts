@@ -7,6 +7,12 @@ export default function wrap(el: HTMLElement) {
   clone.style.top = `${bcr.top - parseInt(style.marginTop, 10)}px`;
   clone.style.left = `${bcr.left - parseInt(style.marginLeft, 10)}px`;
 
+  // insert in DOM
+  el.parentNode.insertBefore(clone, el.nextSibling);
+
+  // hide element
+  el.style.visibility = "hidden";
+
   return {
     originalNode: el,
     clone,

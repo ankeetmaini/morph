@@ -11,14 +11,6 @@ export default function morph(
   const fromWrapper = wrap(from);
   const toWrapper = wrap(to);
 
-  // step-2: insert clones
-  from.parentNode.insertBefore(fromWrapper.clone, from.nextSibling);
-  to.parentNode.insertBefore(toWrapper.clone, from.nextSibling);
-
-  // step-3: hide originals
-  from.style.visibility = "hidden";
-  to.style.visibility = "hidden";
-
-  // step-4: add transforms
-  change(fromWrapper, toWrapper, options);
+  // step-2: add transforms
+  return change(fromWrapper, toWrapper, options);
 }

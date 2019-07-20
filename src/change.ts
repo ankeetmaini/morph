@@ -1,11 +1,17 @@
-import { Options, Wrapped } from "./types";
+import { Options, Wrapped, PromiseHandler } from "./types";
 import getTransform from "./get-transform";
+import easings from "./easings";
 
 export default function transform(
   from: Wrapped,
   to: Wrapped,
   options: Options
 ) {
+  let resolve: PromiseHandler;
+  const promise = new Promise(f => {
+    resolve = f;
+  });
+
   const { duration } = options;
 
   const startTime = Date.now();
@@ -15,7 +21,8 @@ export default function transform(
 
     // this ratio increases gradually from 0 to 1
     // and finishes when it reaches to 1
-    const ratio = elapsed / duration;
+    const easing = easings[options.easing || "linear"];
+    const ratio = easing(elapsed / duration);
 
     // opacity to make first element fade and second element show
     // gradually as time passes
@@ -45,10 +52,13 @@ export default function transform(
       to.clone.parentNode.removeChild(to.clone);
 
       to.originalNode.style.visibility = "visible";
+      resolve();
       return;
     }
     requestAnimationFrame(tick);
   };
 
   tick();
+
+  return promise;
 }
