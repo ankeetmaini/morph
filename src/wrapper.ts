@@ -13,6 +13,8 @@ export default function wrap(el: HTMLElement) {
     style,
     bcr,
     cx: (bcr.left + bcr.right) / 2,
-    cy: (bcr.top + bcr.bottom) / 2
+    cy: (bcr.top + bcr.bottom) / 2,
+    width: bcr.width,
+    height: bcr.height
   };
 }

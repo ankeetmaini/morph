@@ -1,6 +1,6 @@
 import wrap from "./wrapper";
 import { Options } from "./types";
-import transform from "./morph";
+import change from "./change";
 
 export default function morph(
   from: HTMLElement,
@@ -20,5 +20,5 @@ export default function morph(
   to.style.visibility = "hidden";
 
   // step-4: add transforms
-  transform(fromWrapper, toWrapper, options);
+  change(fromWrapper, toWrapper, options);
 }
